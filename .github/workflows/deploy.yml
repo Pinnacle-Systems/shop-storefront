@@ -1,8 +1,6 @@
 name: Deploy to VPS
 
-on:
-  push:
-    branches: ['main']
+on: push
 
 jobs:
   deploy:
@@ -43,6 +41,7 @@ jobs:
         run: npm ci && npm run build:standalone
 
       - name: Deploy to VPS
+        if: github.ref == 'refs/heads/main'
         uses: easingthemes/ssh-deploy@v5.1.0
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
